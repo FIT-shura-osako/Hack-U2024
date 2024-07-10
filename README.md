@@ -48,12 +48,12 @@ HACKU2024/
 
 ### バックエンド (Flask)
 
-1. `backend` ディレクトリに移動:
+1. ``backend`` ディレクトリに移動:
 
 2. 仮想環境を作成し、アクティベート:
 `python -m venv venv`
 `source venv/bin/activate`
-# Windowsの場合:
+Windowsの場合:
 `venv\Scripts\activate`
 
 4. 依存関係をインストール:
