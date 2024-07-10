@@ -80,13 +80,10 @@ npm start
 
 プルリクエストは歓迎します。大きな変更を加える場合は、まずissueを開いて議論してください。
 
-## ライセンス
-
-[MIT](https://choosealicense.com/licenses/mit/)
 
 ## 作者
 
-- [あなたの名前]
+- [MIM Lab]
 
 ## 謝辞
 
