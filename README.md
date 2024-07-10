@@ -33,14 +33,23 @@
 
 ## プロジェクト構造
 HACKU2024/
+
 ├── backend/           # Flaskバックエンド
+
 │   ├── app.py
+
 │   ├── requirements.txt
+
 │   └── vercel.json
+
 └── test/              # Reactフロントエンド
+
 ├── public/
+
 ├── src/
+
 ├── package.json
+
 └── 
 
 ## セットアップと実行方法
