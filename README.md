@@ -40,8 +40,7 @@ HACKU2024/
 └── test/              # Reactフロントエンド
 ├── public/
 ├── src/
-├── package.json
-└── 
+└── package.json
 
 ## セットアップと実行方法
 
