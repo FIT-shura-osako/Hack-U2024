@@ -32,43 +32,46 @@
 - デプロイ: Vercel
 
 ## プロジェクト構造
+```
 HACKU2024/
 ├── backend/           # Flaskバックエンド
 │   ├── app.py
 │   ├── requirements.txt
 │   └── vercel.json
 └── test/              # Reactフロントエンド
-├── public/
-├── src/
-├── package.json
-└── 
+    ├── public/
+    ├── src/
+    └── package.json
+```
 
 ## セットアップと実行方法
 
 ### バックエンド (Flask)
 
-1. `backend` ディレクトリに移動:
+1. ``backend`` ディレクトリに移動:
 
 2. 仮想環境を作成し、アクティベート:
-python -m venv venv
-source venv/bin/activate  # Windowsの場合: venv\Scripts\activate
+`python -m venv venv`
+`source venv/bin/activate`
+Windowsの場合:
+`venv\Scripts\activate`
 
-3. 依存関係をインストール:
-pip install -r requirements.txt
+4. 依存関係をインストール:
+`pip install -r requirements.txt`
 
-4. アプリケーションを実行:
-python app.py
+5. アプリケーションを実行:
+`python app.py`
 
 ### フロントエンド (React)
 
 1. `test` ディレクトリに移動:
-cd HACKU2024/test
+`cd HACKU2024/test`
 
 2. 依存関係をインストール:
-npm install
+`npm install`
 
 3. アプリケーションを実行:
-npm start
+`npm start`
 
 
 ## デプロイ
