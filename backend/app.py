@@ -13,50 +13,85 @@ def safe_eval(expression):
         return None
 
 def trigonometric(expression):
-    return f"{expression} = sin²θ + cos²θ, where θ = arccos({expression}/2) (三角関数の基本恒等式)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} = sin²θ + cos²θ, θ = arccos({expression}/2)"
+    theta = math.acos(value/2)
+    return f"{expression} = sin²({theta:.4f}) + cos²({theta:.4f})"
 
 def calculus(expression):
-    return f"{expression} = ∫_{0}^x f(t)dt, where f(x) = d/dx({expression}) (微積分の基本定理)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} = ∫₀ˣ f(t)dt, f(x) = d/dx({expression})"
+    def f(x):
+        return value
+    integral = value  # 簡単のため、積分を値そのものとします
+    return f"{expression} = ∫₀^{value:.4f} {value:.4f}dt = {integral:.4f}"
 
 def linear_algebra(expression):
     value = safe_eval(expression)
-    size = max(2, int(value)) if value is not None else 'n'
-    return f"{expression} = tr(A), where A is a {size}x{size} identity matrix (単位行列のトレース)"
+    if value is None:
+        return f"{expression} = tr(A), A: n×n単位行列"
+    size = max(2, int(value))
+    return f"{expression} = tr(A), A: {size}×{size}単位行列"
 
 def complex_analysis(expression):
     value = safe_eval(expression)
-    n = value - 1 if value is not None else 'n'
-    return f"{expression} = 1/(2πi) ∮_C z^n dz, where n = {n} (コーシーの積分公式)"
+    if value is None:
+        return f"{expression} = |∑ᵢ₌₀^∞ z^i|, |z| < 1"
+    return f"{expression} = |∑ᵢ₌₀^∞ ({value:.4f})^i|, |{value:.4f}| < 1"
 
 def number_theory(expression):
-    return f"{expression} = φ(n) + 1, where n is the smallest integer such that φ(n) = {expression} - 1 (オイラーのφ関数)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} = φ(n), n: φ(n) = {expression}"
+    return f"{expression} = φ({value+1})"
 
 def differential_equations(expression):
-    return f"{expression} = y(x), where y'' + {expression}y = 0 (2階線形微分方程式)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} = y(x), y'' + {expression}y = 0"
+    return f"{expression} = y(x), y'' + {value:.4f}y = 0"
 
 def probability(expression):
     value = safe_eval(expression)
-    prob = min(max(value / 10, 0.01), 0.99) if value is not None else 'p'
-    return f"{expression} = P(X ≤ x), where X ~ N(0, 1) and x is such that P(X ≤ x) = {prob:.2f} (標準正規分布)"
+    if value is None:
+        return f"{expression} = P(X ≤ x), X ~ N(0, 1)"
+    prob = min(max(value / 10, 0.01), 0.99)
+    return f"{expression} = P(X ≤ {prob:.4f}), X ~ N(0, 1)"
 
 def statistics(expression):
     value = safe_eval(expression)
-    confidence_level = min(max(value * 100, 1), 99) if value is not None else 95
-    return f"{expression} = x̄ ± z * (s / √n), where z corresponds to a {confidence_level:.1f}% confidence level (信頼区間)"
+    if value is None:
+        return f"{expression} = x̄ ± z(s/√n), 95%信頼区間"
+    confidence_level = min(max(value * 100, 1), 99)
+    return f"{expression} = x̄ ± {value:.4f}(s/√n), {confidence_level:.1f}%信頼区間"
 
 def topology(expression):
-    return f"{expression} = diam(X), where X is a compact metric space with diameter {expression} (コンパクト距離空間の直径)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} = χ(X), X: χ(X) = {expression}"
+    return f"{expression} = χ(X), X: χ(X) = {value:.0f}"
 
 def abstract_algebra(expression):
     value = safe_eval(expression)
-    order = 2 * value if value is not None else '2n'
-    return f"{expression} = |G/H|, where G is a group of order {order} and H is a normal subgroup of index 2 (商群の位数)"
+    if value is None:
+        return f"{expression} = |G/H|, |G| = 2{expression}, |H| = 2"
+    order = 2 * value
+    return f"{expression} = |G/H|, |G| = {order:.0f}, |H| = 2"
 
 def numerical_analysis(expression):
-    return f"{expression} ≈ x, where x is the {expression}-th iteration of Newton's method for f(x) = x² - {expression} (ニュートン法)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} ≈ x, x: {expression}次ニュートン法"
+    return f"{expression} ≈ x, x: {value:.0f}次ニュートン法"
 
 def combinatorics(expression):
-    return f"{expression} = C(n, k), where n is the smallest integer such that C(n, n/2) > {expression} (二項係数)"
+    value = safe_eval(expression)
+    if value is None:
+        return f"{expression} = C(n, k), n: C(n, n/2) > {expression}"
+    n = math.ceil(math.sqrt(2 * value))  # 近似値
+    return f"{expression} = C({n}, {n//2})"
 
 field_functions = {
     'trigonometry': trigonometric,
@@ -79,7 +114,7 @@ def complexify(expression, field=None):
     else:
         chosen_field = random.choice(list(field_functions.values()))
         return chosen_field(expression)
-
+    
 @app.route('/api/calculate', methods=['POST'])
 def calculate():
     try:
